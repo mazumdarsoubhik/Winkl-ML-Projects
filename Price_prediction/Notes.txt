@@ -1,0 +1,68 @@
+What I need:
+-> Instagram ID
+-> Total followers
+-> Gender
+-> Avg likes, comments and engagement
+-> *Campaign post engagement
+-> Category
+-> Number of story / video / Post
+-> Amount paid
+
+** Creativity Bonus
+-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-
+
+- Shortlist
+brand_id
+platform_id
+
+- ShortlistedUser
+shortlist_id
+campaign_profile_id
+paid: true
+
+- ShortlistedUserDetail		###
+shortlisted_user_id
+amount
+
+- CampaignProfile
+user_id
+insta_user_id
+
+-Campaign
+brand_id
+status:live/ended
+payment_type: barter/paid
+
+- CampaignPost
+campaign_id
+campaign_profile_id
+platform_id
+campaign_post_format_id
+campaign_brief_shortlist_id
+media_type: string
+
+- CampaignBrief
+campaign_id
+brief_id
+
+-Brief
+brand_id
+platform_id
+
+- BriefPostFormat		###
+brief_id
+campaign_post_format_id
+num_of_posts: integer
+
+- CampaignBriefShortlist
+campaign_id
+brief_id
+shortlist_id
+
+- CampaignProfilePostFormat
+campaign_profile_id
+campaign_post_format_id
+price: float
+
+# From ShorlistUser pick campaign id which are Paid:true and get campaign profile details
+CampaignProfile.where(id: ShortlistedUser.where("paid = true").pluck(:campaign_profile_id))

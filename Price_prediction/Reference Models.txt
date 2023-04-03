@@ -1,0 +1,44 @@
+irb(main):003:0> ShortlistedUser.last
+  ShortlistedUser Load (0.6ms)  SELECT  "shortlisted_users".* FROM "shortlisted_users" ORDER BY "shortlisted_users"."id" DESC LIMIT $1  [["LIMIT", 1]]
+=> #<ShortlistedUser id: 2988, shortlist_id: 488, created_at: "2020-12-09 13:28:46", updated_at: "2020-12-09 13:28:46", campaign_profile_id: 6467, accepted: false, seen: false, signature_url: nil, paid: false, rating: nil, transaction_id: nil, payment_status: nil, payout_time: nil, platform_id: nil, delivery_status: "Yet to be shipped", delivery_verified: nil>
+
+
+irb(main):004:0> ShortlistedUserDetail.last
+  ShortlistedUserDetail Load (3.3ms)  SELECT  "shortlisted_user_details".* FROM "shortlisted_user_details" ORDER BY "shortlisted_user_details"."id" DESC LIMIT $1  [["LIMIT", 1]]
+=> #<ShortlistedUserDetail id: 5542, shortlisted_user_id: 2840, amount: 300, comments: nil, created_at: "2020-12-09 09:26:21", updated_at: "2020-12-09 09:26:21", custom_text: "+ the product cost", posting_dates: nil>
+
+
+irb(main):005:0> ShortlistedUser.find(2840)
+  ShortlistedUser Load (0.7ms)  SELECT  "shortlisted_users".* FROM "shortlisted_users" WHERE "shortlisted_users"."id" = $1 LIMIT $2  [["id", 2840], ["LIMIT", 1]]
+=> #<ShortlistedUser id: 2840, shortlist_id: 499, created_at: "2020-12-09 06:54:55", updated_at: "2020-12-10 03:00:35", campaign_profile_id: 10216, accepted: true, seen: true, signature_url: "https://dns.winkl.co/Gallery/uploads/large1200_win...", paid: false, rating: nil, transaction_id: nil, payment_status: nil, payout_time: nil, platform_id: nil, delivery_status: nil, delivery_verified: nil>
+
+
+irb(main):006:0> CampaignBriefShortlist.where("shortlist_id =  499")
+  CampaignBriefShortlist Load (2.1ms)  SELECT  "campaign_brief_shortlists".* FROM "campaign_brief_shortlists" WHERE (shortlist_id =  499) LIMIT $1  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<CampaignBriefShortlist id: 486, campaign_id: 147, brief_id: 281, shortlist_id: 499, created_at: "2020-12-09 06:54:17", updated_at: "2020-12-09 09:26:22", brief_sent_time: "2020-12-09 09:26:22", send_brief: true, total_slots: nil, linked_shortlist: nil, seen: nil, accepted: nil, brief_title: nil, shortlist_title: nil, posts: nil, posts_completed: nil, total_posts: nil, posts_submitted: nil, notifications: nil, unread_message_count: nil, show_dropdown: nil>]>
+
+
+irb(main):007:0> BriefPostFormat.where("brief_id = 281")
+  BriefPostFormat Load (4.6ms)  SELECT  "brief_post_formats".* FROM "brief_post_formats" WHERE (brief_id = 281) LIMIT $1  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<BriefPostFormat id: 3396, brief_id: 281, campaign_post_format_id: 12, num_of_posts: nil, created_at: "2020-12-09 09:55:25", updated_at: "2020-12-09 09:55:25">, #<BriefPostFormat id: 3395, brief_id: 281, campaign_post_format_id: 11, num_of_posts: nil, created_at: "2020-12-09 09:55:25", updated_at: "2020-12-09 09:55:25">, #<BriefPostFormat id: 3394, brief_id: 281, campaign_post_format_id: 3, num_of_posts: nil, created_at: "2020-12-09 09:55:25", updated_at: "2020-12-09 09:55:25">, #<BriefPostFormat id: 3393, brief_id: 281, campaign_post_format_id: 2, num_of_posts: 1, created_at: "2020-12-09 09:55:25", updated_at: "2020-12-09 09:55:25">, #<BriefPostFormat id: 3392, brief_id: 281, campaign_post_format_id: 1, num_of_posts: 1, created_at: "2020-12-09 09:55:25", updated_at: "2020-12-09 09:55:25">]>
+
+
+irb(main):008:0> CampaignPostFormat.pluck(:format)
+   (1.8ms)  SELECT "campaign_post_formats"."format" FROM "campaign_post_formats"
+=> ["Image", "Story", "Video", "Video", "Video", "Image", "Video", "Video", "Idea List Link", "Reels", "Carousel"]
+
+
+irb(main):009:0> CampaignPostFormat.pluck(:format,:platform_id)
+   (0.8ms)  SELECT "campaign_post_formats"."format", "campaign_post_formats"."platform_id" FROM "campaign_post_formats"
+=> [["Image", 1], ["Story", 1], ["Video", 1], ["Video", 2], ["Video", 3], ["Image", 4], ["Video", 4], ["Video", 5], ["Idea List Link", 4], ["Reels", 1], ["Carousel", 1]]
+
+
+irb(main):010:0> CampaignProfile.find(10216)
+  CampaignProfile Load (10.3ms)  SELECT  "campaign_profiles".* FROM "campaign_profiles" WHERE "campaign_profiles"."id" = $1 LIMIT $2  [["id", 10216], ["LIMIT", 1]]
+=> #<CampaignProfile id: 10216, user_id: 31132, name: "Sushila Rawat ", date_of_birth: "1986-08-20", email_id: "avimrigank19@gmail.com", phone_number: "9712420184", gender: "Female", created_at: "2020-09-18 14:33:36", updated_at: "2020-12-10 02:59:38", insta_user_id: 300611, insta_auth_token: "mykindaa_motherhood", youtube_channel_id: nil, tiktok_user_id: nil, city: "Ghaziabad", state: "Uttar Pradesh", country: "India", address: "https://dns.winkl.co/Gallery/uploads/large1200_win...", youtube_channel_url: "", tiktok_user_handle: "", instagram_handle: "mykindaa_motherhood", profile_type: nil, bio: "I post content about beauty, lifestyle and parenti...", insta_picked_at: nil, youtube_picked_at: nil, tiktok_picked_at: nil, profile_completion: 100.0, label: "Micro Influencer", superfans_whitelisted: false, whatsapp_approved: true, quality: "2", best_platform: nil, phone_verified: true, instagram_account_id: 292451, test_account: false, barter_allowed: true, winkl_score: nil, ifsc_code: nil, account_number: nil, bank_name: nil, beneficiary_name: nil, gst_number: nil, pan: nil, payment_info: nil, category_ids: nil, posts_assigned: nil, posts_created: nil, under_verification: nil, content_under_verification: nil, content_approved: nil, posts_rejected: nil, invoice_generated: nil, comments: nil, amount: nil, paid: nil, seen: nil, accepted: nil, rating: nil, profile_pic: nil, insta_follower_count: nil, insta_following_count: nil, insta_avg_engagement: nil, insta_avg_likes: nil, insta_avg_video_views: nil, youtube_subscriber_count: nil, youtube_avg_views: nil, youtube_video_count: nil, tiktok_follower_count: nil, languages: nil, comment: nil, custom_text: nil, in_collection: nil>
+
+
+irb(main):011:0> CampaignProfile.find(10216).instagram_account
+  CampaignProfile Load (0.8ms)  SELECT  "campaign_profiles".* FROM "campaign_profiles" WHERE "campaign_profiles"."id" = $1 LIMIT $2  [["id", 10216], ["LIMIT", 1]]
+  InstagramAccount Load (12.1ms)  SELECT "instagram_accounts".* FROM "instagram_accounts" WHERE "instagram_accounts"."id" = 292451
+=> #<InstagramAccount id: 292451, handle: "mykindaa_motherhood", name: "Sushila Rawat", url: "https://www.instagram.com/mykindaa_motherhood", email: "", secondary_email: "", avg_engagement: 2.09, avg_likes: 229.83, avg_comments: 11.58, scraped_at: "2020-12-10 02:59:42", picked: false, extraction_tag: "", user_id: 300611, score_updated_at: nil, active: true, footprint: nil, on_winkl: false, quality: nil, label: nil, city: nil, state: nil, country: nil, gender: nil, phone_number: nil, winkl_curated_by: nil, winkl_curated_at: nil, avg_video_views: 147.333333333333, bio: "Lifestyle🌸entertainment�mmotherhood🌸food\nTeaching P...", link_in_bio: "http://clovia.com/x/Y3Vo", followers: 11532, following: 6695, num_of_posts: 318, profile_pic: "https://instagram.fdel1-3.fna.fbcdn.net/v/t51.2885...", ffratio: 1.72, total_likes: 3656, total_comments: 260, follower_increase: 0.0, follower_increase_week: 0.0244292440259394, follower_increase_month: nil, caption_score: nil, comment_score: nil, caption_count: nil, comment_count: nil, location: "Ghaziabad, India", created_at: "2020-11-07 08:51:23", updated_at: "2020-12-10 02:59:42", insta_user_id: 300611, category_ids: nil>
